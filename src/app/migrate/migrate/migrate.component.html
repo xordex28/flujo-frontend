@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="wrapper">
+    <div>
+      <mat-form-field>
+        <mat-label>Schemas</mat-label>
+        <mat-select (selectionChange)="seleccionar($event.value)">
+          <mat-option [value]="">Selecione.</mat-option>
+          <mat-option *ngFor="let item of schemas" [value]="item">
+            {{item}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="wrapper">
+      <input type="file" (change)="selectFile(file['files'])" #file>
+      <button mat-button (click)="sendFile()"> Obtener Detalles</button>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div>
+      <mat-form-field>
+        <mat-label>Index {{seleccionado}}</mat-label>
+        <mat-select #schema>
+          <mat-option [value]="">Selecione.</mat-option>
+          <mat-option *ngFor="let item;let i = index of indexSchema" [disabled]="item.disabled" [value]="i">
+            {{item.key}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Index {{seleccionado}}</mat-label>
+        <mat-select #fileS>
+          <mat-option [value]="">Selecione.</mat-option>
+          <mat-option *ngFor="let item;let i = index of indexFile" [disabled]="item.disabled" [value]="i">
+            {{item.key}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-button (click)="setChanges(schema.value,fileS.value,[schema,fileS])">></button>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <table width="100%">
+      <tr>
+        <td width="50%">
+          Antes
+        </td>
+        <td width="50%">
+          Despues
+        </td>
+      </tr>
+      <tr *ngFor="let item of formatingFile">
+        <td>{{item.old}}</td>
+        <td>{{item.new}}</td>
+      </tr>
+    </table>
+    <button mat-button (click)="formatFile()">Formatear</button>
+    <button mat-button (click)="saveFile()">Save</button>
+  </div>
+</div>
